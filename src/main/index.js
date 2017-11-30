@@ -22,8 +22,11 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 180,
     useContentSize: true,
-    width: 500
-    // resizable: false
+    width: 500,
+    titleBarStyle: 'customButtonsOnHover',
+    resizable: false,
+    movable: true,
+    alwaysOnTop: true
   })
 
   mainWindow.loadURL(winURL)
