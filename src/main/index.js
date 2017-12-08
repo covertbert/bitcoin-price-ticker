@@ -1,5 +1,4 @@
 'use strict'
-
 import { app, BrowserWindow } from 'electron'
 
 /**
@@ -22,10 +21,9 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 180,
     useContentSize: true,
-    width: 500,
-    titleBarStyle: 'customButtonsOnHover',
+    width: 550,
+    // titleBarStyle: 'customButtonsOnHover',
     resizable: false,
-    movable: true,
     alwaysOnTop: true
   })
 

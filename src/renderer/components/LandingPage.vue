@@ -1,12 +1,13 @@
 <template lang="pug">
 	div.ticker-window
-		img.ticker-window__logo(:src="bitcoinLogo", @click="getPrice('clicked')", :class="{ 'ticker-window__logo--spin' :  logoIsSpinning}")
+		img.ticker-window__logo(:src="bitcoinLogo", @click="getPrice('clicked')")
 		p.ticker-window__price(v-text="`$${bitcoinPrice}`")
 </template>
 
 <script type="text/babel">
   import axios from 'axios'
   import bitcoinLogo from '../assets/img/bitcoin.svg'
+  import anime from 'animejs'
   export default {
     name: 'landing-page',
     data () {
@@ -18,12 +19,16 @@
     },
     components: {},
     methods: {
+      rotateCoin () {
+        anime({
+          targets: '.ticker-window__logo',
+          rotate: '1turn',
+          duration: 1000
+        })
+      },
       getPrice (clicked) {
         if (clicked) {
-          this.logoIsSpinning = true
-          setInterval(() => {
-            this.logoIsSpinning = false
-          }, 1000)
+          this.rotateCoin()
         }
         axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
           .then((data) => {
@@ -58,10 +63,6 @@
 	.ticker-window__logo {
 		height: 70%;
 		flex: 1;
-
-		&--spin {
-			animation: rotateLogo 1s forwards;
-		}
 	}
 
 	.ticker-window__price {
@@ -71,14 +72,5 @@
 		font-size: 90px;
 		font-weight: 600;
 		text-align: center;
-	}
-
-	@keyframes rotateLogo {
-		from {
-			transform: rotate(0deg);
-		}
-		to {
-			transform: rotate(360deg);
-		}
 	}
 </style>
